@@ -1,8 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {setAllCountries} from './services'
+
+import Zemlje from './components/Zemlje';
+import Select from './components/Select';
+
+
+
+
+
+const App = () => {
+
+  const [countries,setCountries] = useState([])
+
+  // const [regioni,setRegioni] = useState('')
+
+  useEffect(() => {
+    setAllCountries().then(res => {
+      console.log(res.data)
+      setCountries(res.data)
+    })
+  },[])
+
+
+  
+
+  return (
+    <>
+
+    <Select />
+    <Zemlje countries={countries}/>
+    
+  <p>asdas</p>
+
+    </>
+  )
+}
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,8 +44,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
